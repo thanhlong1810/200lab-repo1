@@ -34,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: 080196/crawler-website
+          images: ${{ secrets.DOCKER_USERNAME }}/crawler-website
           tags: |
             type=raw,value={{date 'YYYY-MM-DD'}}
 
