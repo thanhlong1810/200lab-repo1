@@ -1,3 +1,5 @@
+name: CD
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
@@ -23,7 +25,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: thanhlong1810/crawler-website
+          images: ${{ secrets.DOCKER_USERNAME }}/crawler-website
           tags: |
             type=raw,value={{date 'YYYY-MM-DD'}}
 
@@ -36,7 +38,7 @@ jobs:
           port: 22
           script: |
             cd /home/ubuntu/crawler-demo
-            sh deploy.sh thanhlong1810/crawler-website ${{ steps.meta.outputs.tags }}
+            sh deploy.sh ${{ secrets.DOCKER_USERNAME }}/crawler-website ${{ steps.meta.outputs.tags }}
 
       # - name: Setup SSH
       #   run: |
